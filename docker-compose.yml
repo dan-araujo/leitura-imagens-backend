@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - ./src/database/scripts/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
+      - ./src/database/scripts/create_measures_table.sql:/docker-entrypoint-initdb.d/create_measures_table.sql
+    ports:
+      - "3306:3306"
+
+  image-service-backend:
+    build: .
+    container_name: backend
+    ports:
+      - "3000:3000"
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - .env:/app/.env
+      - ./wait-for-it.sh:/wait-for-it.sh
+    depends_on:
+      - db
+    entrypoint: /wait-for-it.sh db:3306 -- npm run start
