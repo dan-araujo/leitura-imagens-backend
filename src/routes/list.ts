@@ -8,13 +8,14 @@ router.get('/:customer_code/list', async (req, res) => {
     const { measure_type } = req.query
 
     try {
-        if (measure_type && typeof measure_type === 'string'
-            && measure_type.toUpperCase() !== 'WATER'
-            && measure_type.toUpperCase() !== 'GAS') {
-            return res.status(400).json({
-                error_code: 'INVALID_TYPE',
-                error_description: 'Tipo de medição não permitido.'
-            });
+        if (measure_type && typeof measure_type === 'string') {
+            const upperMeasureType = measure_type.toUpperCase();
+            if (upperMeasureType !== 'WATER' && upperMeasureType !== 'GAS') {
+                return res.status(400).json({
+                    error_code: 'INVALID_TYPE',
+                    error_description: 'Tipo de medição não permitido.'
+                });
+            }
         }
 
         const measures = await listMeasures(customer_code, measure_type as string);
@@ -26,12 +27,13 @@ router.get('/:customer_code/list', async (req, res) => {
             });
         }
 
+
         return res.status(200).json({
             customer_code,
             measures
         });
     } catch (error: unknown) {
-        console.error('Erro ao listar as leituras, error');
+        console.error('Erro ao listar as leituras: ', error);
 
         if (error instanceof Error && error.message === 'INVALID_TYPE') {
             return res.status(400).json({
