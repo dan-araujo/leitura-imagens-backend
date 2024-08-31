@@ -39,3 +39,23 @@ Este projeto é uma aplicação backend usando Containers desenvolvida para gere
 3. **Com o Docker instalado na sua máquina. Através da linha de comando execute:**
    ```bash
       docker-compose up --build
+
+## Testando a API com Postman
+
+Para facilitar o teste da API, inclui uma coleção do Postman no repositório. Siga os passos abaixo para importar e utilizar a coleção:
+
+1. **Importar Coleção:**
+   - Navegue até a pasta `tests/postman` no repositório.
+   - Importe o arquivo `Gemini API.postman_collection.json` no Postman:
+     - Abra o Postman.
+     - Clique em "Import" no canto superior esquerdo.
+     - Selecione "Upload Files" e escolha `Gemini API.postman_collection.json`.
+     - Clique em "Import".
+
+2. **Executar Testes:**
+   - Após a importação, selecione o ambiente apropriado, preencha com as informações no corpo da requisição do JSON e execute as requisições para testar a API.
+
+3. **Configurações:**
+   - Certifique-se de que as variáveis de ambiente estejam configuradas conforme necessário para o seu ambiente de desenvolvimento.
+
+Se precisar de ajuda para configurar o Postman, consulte a [documentação do Postman](https://www.postman.com/docs/).
