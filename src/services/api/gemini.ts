@@ -5,7 +5,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 export async function generateImageDescription(base64Image: string, mimeType: string) {
     try {
         const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-        const prompt = 'Descreva a imagem fornecida';
+        const prompt = 'Descreva a imagem fornecida em português';
 
         console.log('Consultando a API Gemini...');
 
