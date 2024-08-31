@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"image\": \"base64image\",\r\n\"customer_code\": \"123456AD\",\r\n\"measure_datetime\": \"2020-02-20 16:20:30\",\r\n\"measure_type\": \"GAS\"\r\n}",
+					"raw": "{\r\n\"image\": \"https://naturagua.com.br/media/catalog/product/cache/09d1dde0719e1b9a0333ca4f9efda987/g/a/garraf_o_tiffany_10l_site-san.png\",\r\n\"customer_code\": \"123456BC\",\r\n\"measure_datetime\": \"2020-02-20 16:20:30\",\r\n\"measure_type\": \"WATER\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -54,7 +54,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"measure_uuid\": \"123456AD\",\r\n\"confirmed_value\": 1\r\n}",
+					"raw": "{\r\n\"measure_uuid\": \"3a560267-9b41-4dc7-bf2103\",\r\n\"confirmed_value\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -100,7 +100,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/measures/12345/list?measure_type=WATER",
+					"raw": "http://localhost:3000/measures/123456BC/list?measure_type=WATER",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -108,7 +108,7 @@
 					"port": "3000",
 					"path": [
 						"measures",
-						"12345",
+						"123456BC",
 						"list"
 					],
 					"query": [
