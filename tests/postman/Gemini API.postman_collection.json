@@ -19,42 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/measures/upload",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"measures",
-						"upload"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Request Body Default",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\"image\": \"\",\r\n\"customer_code\": \"\",\r\n\"measure_datetime\": \"2020-02-20 16:20:30\",\r\n\"measure_type\": \"\"\r\n}",
+					"raw": "{\r\n\"image\": \"base64image\",\r\n\"customer_code\": \"123456AD\",\r\n\"measure_datetime\": \"2020-02-20 16:20:30\",\r\n\"measure_type\": \"GAS\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
