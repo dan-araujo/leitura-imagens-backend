@@ -35,8 +35,11 @@ Este projeto é uma aplicação backend usando Containers desenvolvida para gere
    git clone https://github.com/dan-araujo/leitura-imagens-backend.git
    cd leitura-imagens-backend
    
-2. **Preencha o arquivo .env com as configurações para o seu projeto, incluindo a Chave de API Gemini que você gerou no site oficial da Google Cloud**
-3. **Com o Docker instalado na sua máquina. Através da linha de comando execute:**
+2. **Preencha o arquivo .env com as configurações para o seu projeto, incluindo a Chave de API Gemini que você gerou no site oficial do Google AI Developers**
+
+     - [Obter a chave da API](https://ai.google.dev/gemini-api/docs/api-key)
+     
+4. **Com o Docker instalado na sua máquina. Através da linha de comando execute:**
    ```bash
       docker-compose up --build
 
