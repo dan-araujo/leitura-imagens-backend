@@ -19,11 +19,24 @@ export function validateMeasureData(data: any): { valid: boolean, errors: Record
         errors.measure_type = ['O campo measure_type deve ser WATER ou GAS'];
     }
 
-    const base64Regex = /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
-    if (!data.image || typeof data.image !== 'string' || !base64Regex.test(data.image)) {
-        valid = false;
-        errors.image = ['O campo image deve ser uma string em base64 válida.']
-    }
+   if(!data.image || typeof data.image !== 'string' || !isBase64(data.image) && !isValidUrl(data.image)) {
+    valid = false;
+    errors.image = ['O campo image deve ser uma url de imagem válida'];
+   }
 
     return { valid, errors };
+}
+
+function isBase64(base64Txt: string): boolean {
+    const base64Regex = /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
+    return base64Regex.test(base64Txt);
+}
+
+function isValidUrl(url: string): boolean {
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
 }
