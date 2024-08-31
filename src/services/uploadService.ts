@@ -2,6 +2,8 @@ import { Measure } from '../models/measure';
 import { generateImageDescription } from './api/gemini';
 import { executeQuery } from '../database/db';
 import * as uuid from 'uuid';
+import { imageUrlToBase64, getMimeType } from '../utils/imageUtils';
+import { extname } from 'path';
 
 export async function uploadMeasure(measureData: any): Promise<Measure> {
     const { image, customer_code, measure_datetime, measure_type } = measureData;
@@ -21,6 +23,20 @@ export async function uploadMeasure(measureData: any): Promise<Measure> {
     }
 
     try {
+        let base64Image: string;
+        let mimeType: string;
+
+        if (image.startsWith('http://') || image.startsWith('https://')) {
+            const imageData = await imageUrlToBase64(image);
+            base64Image = imageData.base64;
+            mimeType = imageData.mimeType;
+        } else {
+            const extension = extname(image);
+            mimeType = getMimeType(extension);
+            base64Image = image; 
+        }
+
+        console.log('Imagem convertida para base64 com sucesso ');
 
         console.log('Executando a query de verificação de medidas existentes...');
         const existingMeasures = await executeQuery(
@@ -35,7 +51,7 @@ export async function uploadMeasure(measureData: any): Promise<Measure> {
         }
 
         console.log('Gerando descrição da imagem...');
-        const description = await generateImageDescription(image);
+        const description = await generateImageDescription(base64Image, mimeType);
         console.log('Descrição da imagem gerada:', description);
 
         const measure_value = extractMeasureValue(description);
@@ -50,7 +66,7 @@ export async function uploadMeasure(measureData: any): Promise<Measure> {
             `INSERT INTO measures (measure_uuid, customer_code, measure_datetime, measure_type,
         measure_value, image, has_confirmed) VALUES (?, ?, ?, ?, ?, ?, false)`,
             [measure_uuid, customer_code, measure_datetime, measure_type,
-                measure_value, image, false]
+                measure_value, base64Image, false]
         );
         console.log('Nova medida inserida com sucesso.');
 
@@ -60,7 +76,7 @@ export async function uploadMeasure(measureData: any): Promise<Measure> {
             measure_datetime,
             measure_type,
             description,
-            image,
+            base64Image,
             measure_value!
         );
     } catch (error: any) {
@@ -86,5 +102,3 @@ function extractMeasureValue(description: string): number | null {
 function generateUUID(): string {
     return uuid.v4();
 }
-
-
