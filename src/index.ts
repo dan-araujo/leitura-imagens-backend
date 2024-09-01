@@ -16,6 +16,8 @@ app.use('/measures', uploadRouter);
 app.use('/measures', confirmRouter);
 app.use('/measures', listRouter);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+export { app, server }
