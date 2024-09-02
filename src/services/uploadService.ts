@@ -8,8 +8,6 @@ import { extname } from 'path';
 export async function uploadMeasure(measureData: any): Promise<Measure> {
     const { image, customer_code, measure_datetime, measure_type } = measureData;
 
-    console.log('Dados recebidos:', measureData);
-
     if (!image || !customer_code || !measure_datetime || !measure_type) {
         throw new Error('Dados inválidos: Todos os campos são obrigatórios.');
     }
@@ -33,24 +31,20 @@ export async function uploadMeasure(measureData: any): Promise<Measure> {
         } else {
             const extension = extname(image);
             mimeType = getMimeType(extension);
-            base64Image = image; 
+            base64Image = image;
         }
 
-        console.log('Imagem convertida para base64 com sucesso ');
-
-        console.log('Executando a query de verificação de medidas existentes...');
         const existingMeasures = await executeQuery(
             `SELECT * FROM measures WHERE customer_code = ? AND measure_type = ? AND
             MONTH(measure_datetime) = MONTH(?) AND YEAR(measure_datetime) = YEAR(?)`,
             [customer_code, measure_type, measure_datetime, measure_datetime]
         );
-        console.log('Medidas existentes verificadas:', existingMeasures);
 
         if (existingMeasures.length > 0) {
+            console.log('Leitura existente encontrada. Lançando erro DOUBLE_REPORT.');
             throw new Error('DOUBLE_REPORT');
         }
 
-        console.log('Gerando descrição da imagem...');
         const description = await generateImageDescription(base64Image, mimeType);
         console.log('Descrição da imagem gerada:', description);
 
@@ -61,14 +55,12 @@ export async function uploadMeasure(measureData: any): Promise<Measure> {
 
         const measure_uuid = generateUUID();
 
-        console.log('Inserindo nova medida no banco de dados...');
         await executeQuery(
             `INSERT INTO measures (measure_uuid, customer_code, measure_datetime, measure_type,
         measure_value, image, has_confirmed) VALUES (?, ?, ?, ?, ?, ?, false)`,
             [measure_uuid, customer_code, measure_datetime, measure_type,
                 measure_value, base64Image, false]
         );
-        console.log('Nova medida inserida com sucesso.');
 
         return new Measure(
             measure_uuid,

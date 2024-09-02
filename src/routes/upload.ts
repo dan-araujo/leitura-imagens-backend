@@ -12,6 +12,7 @@ router.post('/upload', async (req, res) => {
             error_code: 'INVALID_DATA',
             error_description: errors
         });
+
     }
 
     try {
@@ -24,9 +25,9 @@ router.post('/upload', async (req, res) => {
         });
 
     } catch (error: unknown) {
-        console.error('Erro ao processar o upload: ', error);
         if (error instanceof Error) {
             if (error.message.includes('DOUBLE_REPORT')) {
+                console.log('Erro DOUBLE_REPORT capturado. Retornando status 409.');
                 res.status(409).json({
                     error_code: 'DOUBLE_REPORT',
                     error_description: 'Leitura do mês já realizada'

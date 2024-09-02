@@ -37,8 +37,6 @@ export function closeDatabaseConnection() {
 
 
 export async function executeQuery(query: string, values?: any[]): Promise<any> {
-    console.log(`Executando query: ${query}`);
-    console.log(`Valores: ${values}`);
     try {
         return new Promise((resolve, reject) => {
             connection.query(query, values, (error, results) => {
