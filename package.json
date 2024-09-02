@@ -5,7 +5,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "ts && tsc-watch --onSuccess \"npm run start\"",
-    "test": "jest --watchAll --no-cache --detectOpenHandles"
+    "test": "jest --watchAll --no-cache --detectOpenHandles --verbose"
   },
   "keywords": [],
   "author": "",
