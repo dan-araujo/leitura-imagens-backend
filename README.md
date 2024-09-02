@@ -10,6 +10,7 @@ Este projeto é uma aplicação backend usando Containers desenvolvida para gere
 - **MySQL**: Banco de dados para armazenamento das leituras.
 - **Docker**: Containerização da aplicação.
 - **Jest**: Framework de testes.
+- **Supertest**: Ferramenta que permite testar requisições HTTP
 - **Luxon**: Biblioteca para manipulação e validação de datas.
 - **Gemini API**: Para identificar a descrição das imagens
 
