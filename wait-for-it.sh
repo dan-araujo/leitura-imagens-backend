@@ -11,6 +11,3 @@ done
 
 >&2 echo "Banco de dados está disponível - iniciando o back-end..."
 exec $cmd
-
-
-
