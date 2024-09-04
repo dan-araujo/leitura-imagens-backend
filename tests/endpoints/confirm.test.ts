@@ -6,11 +6,11 @@ import '../testEnvironmentSetup';
 
 const mockConfirmedValue = 123;
 
-jest.mock('../src/database/db', () => ({
+jest.mock('../../src/database/db', () => ({
     executeQuery: jest.fn()
 }));
 
-jest.mock('../src/services/confirmService', () => ({
+jest.mock('../../src/services/confirmService', () => ({
     confirmMeasure: jest.fn()
 }));
 
