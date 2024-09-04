@@ -3,7 +3,7 @@ import { app } from '../../src/index';
 import { executeQuery } from '../../src/database/db';
 import '../testEnvironmentSetup';
 
-jest.mock('../src/database/db', () => ({
+jest.mock('../../src/database/db', () => ({
     executeQuery: jest.fn()
 }));
 
