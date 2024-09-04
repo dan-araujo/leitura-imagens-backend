@@ -9,7 +9,7 @@ const measureTypeParam = 'WATER';
 
 let mockSelectResponse: { measure_uuid: string }[] = [];
 
-jest.mock('../src/database/db', () => ({
+jest.mock('../../src/database/db', () => ({
     executeQuery: jest.fn().mockImplementation((query) => {
         if (query.includes('SELECT * FROM measures')) {
             return Promise.resolve(mockSelectResponse);
