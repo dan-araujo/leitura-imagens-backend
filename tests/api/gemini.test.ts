@@ -2,6 +2,7 @@ import { extname } from 'path';
 import { generateImageDescription } from '../../src/services/api/gemini';
 import * as fs from 'fs';
 import { getMimeType } from '../../src/utils/imageUtils';
+import '../testEnvironmentSetup';
 
 jest.mock('../../src/services/api/gemini', () => ({
     generateImageDescription: jest.fn()
